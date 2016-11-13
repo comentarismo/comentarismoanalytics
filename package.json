@@ -1,0 +1,36 @@
+{
+  "name": "comentarismoanalytics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "check-coverage": "node_modules/.bin/istanbul check-coverage ./coverage/coverage.json",
+    "coverage": "node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- ./test/ --recursive",
+    "test": "node_modules/.bin/mocha ./test/ --recursive",
+    "npm-update": "node_modules/.bin/npm-update-outdated",
+    "wrap": "npm shrinkwrap"
+  },
+  "author": "Comentarismo Team",
+  "license": "",
+  "dependencies": {
+    "basic-auth-connect": "1.0.0",
+    "bluebird": "3.4.6",
+    "body-parser": "1.15.2",
+    "compression": "1.6.2",
+    "defaults": "1.0.3",
+    "express": "4.14.0",
+    "geoip-lite": "1.1.8",
+    "istanbul": "0.4.5",
+    "redis": "2.6.3",
+    "request": "2.78.0",
+    "request-ip": "1.2.3",
+    "rethinkdb-job-queue": "1.1.2",
+    "rethinkdbdash": "2.3.26"
+  },
+  "devDependencies": {
+    "assert": "1.4.1",
+    "chai": "3.5.0",
+    "istanbul": "https://registry.npmjs.org/istanbul/-/istanbul-0.4.5.tgz",
+    "mocha": "3.1.2"
+  }
+}
