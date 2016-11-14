@@ -148,9 +148,47 @@ function limiterhandler(req, res) {
     });
 }
 
+//CORS middleware
+var allowCrossDomain = function (req, res, next) {
+    var oneof = false;
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        oneof = true;
+    }
+    if (req.headers['access-control-request-method']) {
+        res.header('Access-Control-Allow-Methods', "DELETE, GET, HEAD, POST, PUT, OPTIONS");
+        oneof = true;
+    }
+    if (req.headers['access-control-request-headers']) {
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, COMENTARISMO-KEY');
+        oneof = true;
+    }
+    if (oneof) {
+        res.header('Access-Control-Max-Age', 60 * 60 * 24 * 2);
+    }
 
-app.all('/analytics', requestIp.mw(), function (req, res) {
+    res.header('Content-Type', "application/json");
+
+    // intercept OPTIONS method
+    if (oneof && (req.method == 'OPTIONS' )) {
+        res.send(200);
+    }
+    else {
+        next();
+    }
+}
+
+app.all('/analytics', allowCrossDomain, requestIp.mw(), function (req, res) {
     console.log('tracking called ...');
+    if (req.method === 'PUT' ||
+        req.method === 'GET' ||
+        req.method === 'DELETE' ||
+        req.method === 'HEAD' ||
+        req.method === 'TRACE' ||
+        req.method === 'CONNECT') {
+        console.log("Could not process METHOD:(", req.method);
+        return res.status(422).send({error: "invalid_method"});
+    }
 
     var t = req.body.track;
     if (!t) {
