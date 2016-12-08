@@ -208,6 +208,7 @@ app.all('/analytics', allowCrossDomain, requestIp.mw(), function (req, res) {
 
     //if is message type view
     if (track.type === "view") {
+        track.date = new Date();
         //get geoip identification and enhance message with + info
 
         persistView(track, function (err) {
