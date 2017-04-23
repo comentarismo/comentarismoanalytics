@@ -79,7 +79,41 @@ var dumpError = function dumpError(err) {
     }
 };
 
+
+
+//CORS middleware
+var allowCrossDomain = function (req, res, next) {
+    var oneof = false;
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        oneof = true;
+    }
+    if (req.headers['access-control-request-method']) {
+        res.header('Access-Control-Allow-Methods', "DELETE, GET, HEAD, POST, PUT, OPTIONS");
+        oneof = true;
+    }
+    if (req.headers['access-control-request-headers']) {
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, COMENTARISMO-KEY');
+        oneof = true;
+    }
+    if (oneof) {
+        res.header('Access-Control-Max-Age', 60 * 60 * 24 * 2);
+    }
+
+    res.header('Content-Type', "application/json");
+
+    // intercept OPTIONS method
+    if (oneof && (req.method == 'OPTIONS' )) {
+        res.send(200);
+    }
+    else {
+        next();
+    }
+}
+
+
 module.exports = {
     printErrorMsg:printErrorMsg,
     dumpError:dumpError,
+    allowCrossDomain:allowCrossDomain,
 }

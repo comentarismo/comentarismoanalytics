@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon app.js",
     "check-coverage": "node_modules/.bin/istanbul check-coverage ./coverage/coverage.json",
     "coverage": "node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- ./test/ --recursive",
     "test": "node_modules/.bin/mocha ./test/ --recursive",
@@ -24,11 +25,14 @@
     "express": "4.14.0",
     "geoip-lite": "1.1.8",
     "istanbul": "0.4.5",
+    "knwl.js": "^1.0.2",
     "redis": "2.6.3",
     "request": "2.78.0",
     "request-ip": "1.2.3",
     "rethinkdb-job-queue": "1.1.2",
-    "rethinkdbdash": "2.3.26"
+    "rethinkdbdash": "2.3.26",
+    "twitter-text": "^1.14.3",
+    "wordpos": "^1.1.2"
   },
   "devDependencies": {
     "assert": "1.4.1",

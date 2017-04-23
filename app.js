@@ -38,8 +38,26 @@ var app = express();
 
 app.use(compress());
 app.use(bodyParser());
+
 // app.use(basicAuth('admin', 'g4'));
+
+
+const connection = r({
+    db: RETHINKDB_DB,
+    timeout: RETHINKDB_TIMEOUT,
+    servers: [
+        {
+            host: RETHINKDB_HOST,
+            port: RETHINKDB_PORT
+        }
+    ]
+});
+
 require('./app/routes')(app);
+require('./app/analytics')(app, requestIp, connection, geoip);
+require('./app/syntax')(app, requestIp, connection);
+require('./app/textinfo')(app, requestIp, connection);
+require('./app/twitter')(app, requestIp, connection);
 
 
 var client = redis.createClient({
@@ -90,16 +108,6 @@ var limiter = new RateLimit({
 });
 
 
-const connection = r({
-    db: RETHINKDB_DB,
-    timeout: RETHINKDB_TIMEOUT,
-    servers: [
-        {
-            host: RETHINKDB_HOST,
-            port: RETHINKDB_PORT
-        }
-    ]
-});
 
 var url = require("url");
 var path = require('path');
@@ -147,106 +155,6 @@ function limiterhandler(req, res) {
         }
     });
 }
-
-//CORS middleware
-var allowCrossDomain = function (req, res, next) {
-    var oneof = false;
-    if (req.headers.origin) {
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-        oneof = true;
-    }
-    if (req.headers['access-control-request-method']) {
-        res.header('Access-Control-Allow-Methods', "DELETE, GET, HEAD, POST, PUT, OPTIONS");
-        oneof = true;
-    }
-    if (req.headers['access-control-request-headers']) {
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, COMENTARISMO-KEY');
-        oneof = true;
-    }
-    if (oneof) {
-        res.header('Access-Control-Max-Age', 60 * 60 * 24 * 2);
-    }
-
-    res.header('Content-Type', "application/json");
-
-    // intercept OPTIONS method
-    if (oneof && (req.method == 'OPTIONS' )) {
-        res.send(200);
-    }
-    else {
-        next();
-    }
-}
-
-app.all('/analytics', allowCrossDomain, requestIp.mw(), function (req, res) {
-    console.log('tracking called ...');
-    if (req.method === 'PUT' ||
-        req.method === 'GET' ||
-        req.method === 'DELETE' ||
-        req.method === 'HEAD' ||
-        req.method === 'TRACE' ||
-        req.method === 'CONNECT') {
-        console.log("Could not process METHOD:(", req.method);
-        return res.status(422).send({error: "invalid_method"});
-    }
-
-    var t = req.body.track;
-    if (!t) {
-        console.log("Could not identify message :(");
-        return res.status(422).send({error: "invalid_message"});
-    }
-    var track = t;
-
-    var ip = req.clientIp;
-    if (ip) {
-        track.ip = ip;
-    } else {
-        console.log("Error: Could not identify IP!! ")
-    }
-
-    console.log(track);
-
-    //if is message type view
-    if (track.type === "view") {
-        track.date = new Date();
-        //get geoip identification and enhance message with + info
-
-        persistView(track, function (err) {
-            if (err) {
-                console.log("Error: persistView, ", err);
-                return res.send({error: "Could not process view"});
-            } else {
-                console.log("Done processing job :D ");
-                return res.send({track: "ok"});
-            }
-
-        });
-
-    } else {
-        console.log("Could not identify message type :(", track);
-        return res.status(422).send({error: "invalid_type"});
-    }
-
-});
-
-function persistView(view, cb) {
-    var geo = geoip.lookup(view.ip);
-    if (geo) {
-        view.geo = geo;
-    }
-
-    connection.table('analytics').insert(view, {
-        returnChanges: false,
-        conflict: "replace"
-    }).run().then(function (dbres) {
-        cb();
-    }).catch(function (e) {
-        console.log("ERROR: ", e);
-        cb(e);
-    });
-
-}
-
 
 app.use(limiter);
 app.use(express.static('coverage'));

@@ -32,7 +32,7 @@ describe('Should process analytics post', function () {
                         assert.isDefined(hc.ip, "Expected to get ip back but got nothing :(");
                         assert.isNotNull(hc.ip, "Expected to get ip but got nothing :(");
 
-                        assert.deepEqual(hc.ip, 'http://10.0.1.18:3111/');
+                        assert.deepEqual(hc.ip, 'http://127.0.1.1:3113/');
 
                         done();
                     }
