@@ -3,7 +3,7 @@ var utils = require("../utils");
 module.exports = function (app,requestIp, connection, geoip) {
 
     app.all('/analytics', utils.allowCrossDomain, requestIp.mw(), function (req, res) {
-        console.log('analytics called ...');
+        console.log('analytics called ...', req.body.track);
         if (req.method === 'PUT' ||
             req.method === 'GET' ||
             req.method === 'DELETE' ||
@@ -16,7 +16,7 @@ module.exports = function (app,requestIp, connection, geoip) {
 
         var t = req.body.track;
         if (!t) {
-            console.log("Could not identify message :(");
+            console.log("Could not identify message :(", req.body);
             return res.status(422).send({error: "invalid_message"});
         }
         var track = t;

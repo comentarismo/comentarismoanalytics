@@ -126,9 +126,9 @@ describe('Should process text info post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/textinfo',
+                url: 'http://' + HOST + '/textinfo/dates',
                 method: 'POST',
-                form: {type: "dates", text: expected.dates[0]}
+                form: {text: expected.dates[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -138,7 +138,7 @@ describe('Should process text info post', function () {
                     if (!syntax || syntax.error) {
                         done(new Error(syntax.error));
                     } else {
-                        assert.deepEqual(syntax.response[0].month + "/" + syntax.response[0].day, "12/28");
+                        assert.deepEqual(syntax[0].month + "/" + syntax[0].day, "12/28");
                         done();
                     }
                 } catch (e) {
@@ -160,9 +160,9 @@ describe('Should process text info post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/textinfo',
+                url: 'http://' + HOST + '/textinfo/times',
                 method: 'POST',
-                form: {type: "times", text: expected.times[0]}
+                form: {text: expected.times[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -172,9 +172,9 @@ describe('Should process text info post', function () {
                     if (!syntax || syntax.error) {
                         done(new Error(syntax.error));
                     } else {
-                        assert.deepEqual(syntax.response[0].hour, "12");
-                        assert.deepEqual(syntax.response[0].minute, "54");
-                        assert.deepEqual(syntax.response[0].daynight, "AM");
+                        assert.deepEqual(syntax[0].hour, "12");
+                        assert.deepEqual(syntax[0].minute, "54");
+                        assert.deepEqual(syntax[0].daynight, "AM");
                         done();
                     }
                 } catch (e) {
@@ -195,9 +195,9 @@ describe('Should process text info post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/textinfo',
+                url: 'http://' + HOST + '/textinfo/phones',
                 method: 'POST',
-                form: {type: "phones", text: expected.phones[2]}
+                form: {text: expected.phones[2]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -207,7 +207,7 @@ describe('Should process text info post', function () {
                     if (!syntax || syntax.error) {
                         done(new Error(syntax.error));
                     } else {
-                        assert.deepEqual(syntax.response.length, 1);
+                        assert.deepEqual(syntax.length, 1);
                         done();
                     }
                 } catch (e) {
@@ -228,9 +228,9 @@ describe('Should process text info post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/textinfo',
+                url: 'http://' + HOST + '/textinfo/links',
                 method: 'POST',
-                form: {type: "links", text: expected.links[0]}
+                form: {text: expected.links[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -240,40 +240,7 @@ describe('Should process text info post', function () {
                     if (!syntax || syntax.error) {
                         done(new Error(syntax.error));
                     } else {
-                        assert.deepEqual(syntax.response[0].link, "http://twitter.com/twitter");
-                        done();
-                    }
-                } catch (e) {
-                    if (DEBUG_MODE_ON) {
-                        console.log('Error while tracking: ', e);
-                        console.log("Body: ", body);
-                        utils.dumpError(e);
-                    }
-                    done(e);
-                }
-
-            }).catch(function (e) {
-                done(e)
-            });
-        });
-
-        it('should return ok for a valid hit - emails', function (done) {
-            this.timeout(10000);
-
-            var target = {
-                url: 'http://' + HOST + '/textinfo',
-                method: 'POST',
-                form: {type: "links", text: expected.links[0]}
-            };
-
-            request.postAsync(target).spread(function (response, body) {
-
-                try {
-                    var syntax = JSON.parse(body.toString('utf8'));
-                    if (!syntax || syntax.error) {
-                        done(new Error(syntax.error));
-                    } else {
-                        assert.deepEqual(syntax.response[0].link, "http://twitter.com/twitter");
+                        assert.deepEqual(syntax[0].link, "http://twitter.com/twitter");
                         done();
                     }
                 } catch (e) {
@@ -296,9 +263,9 @@ describe('Should process text info post', function () {
                 this.timeout(10000);
 
                 var target = {
-                    url: 'http://' + HOST + '/textinfo',
+                    url: 'http://' + HOST + '/textinfo/emails',
                     method: 'POST',
-                    form: {type: "emails", text: "You can reach me on " + ve}
+                    form: {text: "You can reach me on " + ve}
                 };
 
                 request.postAsync(target).spread(function (response, body) {
@@ -308,7 +275,7 @@ describe('Should process text info post', function () {
                         if (!syntax || syntax.error) {
                             done(new Error(syntax.error));
                         } else {
-                            assert.deepEqual(syntax.response[0].address, ve);
+                            assert.deepEqual(syntax[0].address, ve);
                             done();
                         }
                     } catch (e) {
@@ -331,9 +298,9 @@ describe('Should process text info post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/textinfo',
+                url: 'http://' + HOST + '/textinfo/places',
                 method: 'POST',
-                form: {type: "places", text: expected.places[0]}
+                form: {text: expected.places[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -343,7 +310,7 @@ describe('Should process text info post', function () {
                     if (!syntax || syntax.error) {
                         done(new Error(syntax.error));
                     } else {
-                        assert.deepEqual(syntax.response[0].place, "Los Angeles");
+                        assert.deepEqual(syntax[0].place, "Los Angeles");
                         done();
                     }
                 } catch (e) {

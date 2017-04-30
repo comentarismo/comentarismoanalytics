@@ -370,6 +370,11 @@
       "from": "express@latest",
       "resolved": "https://registry.npmjs.org/express/-/express-4.14.0.tgz"
     },
+    "express-stream": {
+      "version": "0.8.0",
+      "from": "express-stream@latest",
+      "resolved": "https://registry.npmjs.org/express-stream/-/express-stream-0.8.0.tgz"
+    },
     "extend": {
       "version": "3.0.0",
       "from": "extend@>=3.0.0 <3.1.0",

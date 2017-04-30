@@ -13,11 +13,11 @@ var DEBUG_MODE_ON = process.env.DEBUG || true;
 
 describe('Should process syntax post', function () {
 
-    var str = "The angry bear chased the frightened little squirrel",
+    var str = "The irritated dog chased the frightened little cat",
         expected = {
-            nouns: [ 'bear', 'squirrel', 'little', 'chased' ],
-            verbs: [ 'bear' ],
-            adjectives: [ 'little', 'angry', 'frightened' ],
+            nouns: [ 'dog', 'chased', 'little', 'cat' ],
+            verbs: [ 'dog','cat' ],
+            adjectives: [ 'irritated', 'frightened' ,'little', ],
             adverbs: [ 'little' ],
             rest: [ 'The' ],
         };
@@ -29,9 +29,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/getPOS',
                 method: 'POST',
-                form: {type:"getPOS",text: str}
+                form: {text: str}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -42,11 +42,11 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.sameMembers(syntax.response.nouns, expected.nouns);
-                        assert.sameMembers(syntax.response.verbs, expected.verbs);
-                        assert.sameMembers(syntax.response.adjectives, expected.adjectives);
-                        assert.sameMembers(syntax.response.adverbs, expected.adverbs);
-                        assert.sameMembers(syntax.response.rest, expected.rest);
+                        assert.sameMembers(syntax.nouns, expected.nouns);
+                        assert.sameMembers(syntax.verbs, expected.verbs);
+                        assert.sameMembers(syntax.adjectives, expected.adjectives);
+                        assert.sameMembers(syntax.adverbs, expected.adverbs);
+                        assert.sameMembers(syntax.rest, expected.rest);
 
                         done();
                     }
@@ -70,9 +70,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/getNouns',
                 method: 'POST',
-                form: {type:"getNouns",text: str}
+                form: {text: str}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -83,7 +83,7 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.sameMembers(syntax.response, expected.nouns);
+                        assert.sameMembers(syntax, expected.nouns);
 
                         done();
                     }
@@ -105,9 +105,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/getVerbs',
                 method: 'POST',
-                form: {type:"getVerbs",text: str}
+                form: {text: str}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -118,7 +118,7 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.sameMembers(syntax.response, expected.verbs);
+                        assert.sameMembers(syntax, expected.verbs);
 
                         done();
                     }
@@ -140,9 +140,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/getAdjectives',
                 method: 'POST',
-                form: {type:"getAdjectives",text: str}
+                form: {text: str}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -153,7 +153,7 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.sameMembers(syntax.response, expected.adjectives);
+                        assert.sameMembers(syntax, expected.adjectives);
 
                         done();
                     }
@@ -175,9 +175,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/getAdverbs',
                 method: 'POST',
-                form: {type:"getAdverbs",text: str}
+                form: {text: str}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -188,7 +188,7 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.sameMembers(syntax.response, expected.adverbs);
+                        assert.sameMembers(syntax, expected.adverbs);
 
                         done();
                     }
@@ -212,9 +212,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/isNoun',
                 method: 'POST',
-                form: {type:"isNoun",text: expected.nouns[0]}
+                form: {text: expected.nouns[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -225,7 +225,7 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.ok(syntax.response);
+                        assert.ok(syntax);
                         done();
                     }
                 } catch (e) {
@@ -246,9 +246,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/isVerb',
                 method: 'POST',
-                form: {type:"isVerb",text: expected.verbs[0]}
+                form: {text: expected.verbs[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -259,7 +259,7 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.ok(syntax.response);
+                        assert.ok(syntax);
 
                         done();
                     }
@@ -281,9 +281,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/isAdjective',
                 method: 'POST',
-                form: {type:"isAdjective",text: expected.adjectives[0]}
+                form: {text: expected.adjectives[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -294,7 +294,7 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.ok(syntax.response);
+                        assert.ok(syntax);
 
                         done();
                     }
@@ -316,9 +316,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/isAdverb',
                 method: 'POST',
-                form: {type:"isAdverb",text: expected.adverbs[0]}
+                form: {text: expected.adverbs[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -329,7 +329,7 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.ok(syntax.response);
+                        assert.ok(syntax);
 
                         done();
                     }
@@ -354,9 +354,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/lookupNoun',
                 method: 'POST',
-                form: {type:"lookupNoun",text: expected.nouns[1]}
+                form: {text: expected.nouns[1]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -367,9 +367,9 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.equal(syntax.response.length, 2);
-                        assert.equal(syntax.response[0].pos, 'n');
-                        assert.equal(syntax.response[0].lemma, 'squirrel');
+                        assert.equal(syntax.length, 1);
+                        assert.equal(syntax[0].pos, 'n');
+                        assert.equal(syntax[0].lemma, 'pursued');
 
                         done();
                     }
@@ -391,9 +391,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/lookupVerb',
                 method: 'POST',
-                form: {type:"lookupVerb",text: expected.verbs[0]}
+                form: {text: expected.verbs[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -404,9 +404,9 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.equal(syntax.response.length, 13);
-                        assert.equal(syntax.response[0].pos, 'v');
-                        assert.equal(syntax.response[0].lemma, 'bear');
+                        assert.equal(syntax.length, 1);
+                        assert.equal(syntax[0].pos, 'v');
+                        assert.equal(syntax[0].lemma, 'chase');
 
                         done();
                     }
@@ -428,9 +428,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/lookupAdjective',
                 method: 'POST',
-                form: {type:"lookupAdjective",text: expected.adjectives[1]}
+                form: {text: expected.adjectives[1]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -441,9 +441,9 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.equal(syntax.response.length, 3);
-                        assert.equal(syntax.response[0].pos, 'a');
-                        assert.equal(syntax.response[0].lemma, 'angry');
+                        assert.equal(syntax.length, 2);
+                        assert.equal(syntax[0].pos, 's');
+                        assert.equal(syntax[0].lemma, 'frightened');
                         done();
                     }
                 } catch (e) {
@@ -464,9 +464,9 @@ describe('Should process syntax post', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/lookupAdverb',
                 method: 'POST',
-                form: {type:"lookupAdverb",text: expected.adverbs[0]}
+                form: {text: expected.adverbs[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -477,9 +477,9 @@ describe('Should process syntax post', function () {
                         done(new Error(syntax.error));
                     } else {
 
-                        assert.equal(syntax.response.length, 1);
-                        assert.equal(syntax.response[0].pos, 'r');
-                        assert.equal(syntax.response[0].lemma, 'little');
+                        assert.equal(syntax.length, 1);
+                        assert.equal(syntax[0].pos, 'r');
+                        assert.equal(syntax[0].lemma, 'little');
                         done();
                     }
                 } catch (e) {

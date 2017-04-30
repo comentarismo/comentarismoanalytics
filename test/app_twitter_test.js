@@ -31,9 +31,9 @@ describe('Should process twitter text', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/twitter',
+                url: 'http://' + HOST + '/twitter/extractMentions',
                 method: 'POST',
-                form: {type: "extractMentions", text: expected.twitts[0]}
+                form: {text: expected.twitts[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -43,7 +43,7 @@ describe('Should process twitter text', function () {
                     if (!syntax || syntax.error) {
                         done(new Error(syntax.error));
                     } else {
-                        assert.deepEqual(syntax.response, [ 'twitter', 'jack' ]);
+                        assert.deepEqual(syntax, [ 'twitter', 'jack' ]);
                         done();
                     }
                 } catch (e) {
@@ -64,9 +64,9 @@ describe('Should process twitter text', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/twitter',
+                url: 'http://' + HOST + '/twitter/extractHashtags',
                 method: 'POST',
-                form: {type: "extractHashtags", text: expected.twitts[0]}
+                form: {text: expected.twitts[0]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -76,7 +76,7 @@ describe('Should process twitter text', function () {
                     if (!syntax || syntax.error) {
                         done(new Error(syntax.error));
                     } else {
-                        assert.deepEqual(syntax.response, [ 'hashtag', 'baby' ]);
+                        assert.deepEqual(syntax, [ 'hashtag', 'baby' ]);
                         done();
                     }
                 } catch (e) {
@@ -98,9 +98,9 @@ describe('Should process twitter text', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/twitter',
+                url: 'http://' + HOST + '/twitter/extractUrls',
                 method: 'POST',
-                form: {type: "extractUrls", text: expected.twitts[1]}
+                form: {text: expected.twitts[1]}
             };
 
             request.postAsync(target).spread(function (response, body) {
@@ -110,7 +110,7 @@ describe('Should process twitter text', function () {
                     if (!syntax || syntax.error) {
                         done(new Error(syntax.error));
                     } else {
-                        assert.deepEqual(syntax.response, [ 'hyphenated-url.com'  ]);
+                        assert.deepEqual(syntax, [ 'hyphenated-url.com'  ]);
                         done();
                     }
                 } catch (e) {

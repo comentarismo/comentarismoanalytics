@@ -8,8 +8,7 @@ module.exports = function (app, requestIp, connection) {
 
 
     //find dates, times, phones, links, emails, places,
-    app.all('/twitter', utils.allowCrossDomain, requestIp.mw(), function (req, res) {
-        console.log('twitter called ...');
+    app.all('/twitter/:type', utils.allowCrossDomain, requestIp.mw(), function (req, res) {
         if (req.method === 'PUT' ||
             req.method === 'GET' ||
             req.method === 'DELETE' ||
@@ -21,15 +20,20 @@ module.exports = function (app, requestIp, connection) {
         }
 
         var track = req.body;
-        if (!track.text || !track.type) {
-            console.log("twitter, Could not identify message :(");
+        var type = req.params.type;
+
+        if (!track.text || !type) {
+            console.log("syntax, Could not identify message, type -> ", type, track);
             return res.status(422).send({error: "invalid_message"});
         }
+        console.log('twitter called ...' + type);
+
+        type = type.toLowerCase();
 
         // ================= // =================
         // ================= extractMentions
         // ================= // =================
-        if (track.type === "extractMentions") {
+        if (type === "extractmentions") {
             var mentions = twitter.extractMentions(twitter.htmlEscape(track.text));
             console.log("extractMentions -> ", mentions);
             return processResponse(mentions);
@@ -38,25 +42,25 @@ module.exports = function (app, requestIp, connection) {
         // ================= // =================
         // ================= extractHashtags
         // ================= // =================
-        else if (track.type === "extractHashtags") {
+        else if (type === "extracthashtags") {
             return processResponse(twitter.extractHashtags(twitter.htmlEscape(track.text)));
         }
 
         // ================= // =================
         // ================= extractUrls
         // ================= // =================
-        else if (track.type === "extractUrls") {
+        else if (type === "extracturls") {
             return processResponse(twitter.extractUrls(twitter.htmlEscape(track.text)));
         }
 
         else {
-            console.log("/twitter, Could not identify message type :(", track.type);
+            console.log("/twitter, Could not identify message type :(", type);
             return res.status(422).send({error: "invalid_type"});
         }
 
 
         function processResponse(response) {
-            return res.send({status: "ok", response: response});
+            return res.send(response);
         }
 
     });

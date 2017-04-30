@@ -21,7 +21,7 @@ describe('Should process syntax post - error scenarios', function () {
             this.timeout(10000);
 
             var target = {
-                url: 'http://' + HOST + '/syntax',
+                url: 'http://' + HOST + '/syntax/invalid',
                 method: 'POST',
                 form: {type:"",text: ""}
             };

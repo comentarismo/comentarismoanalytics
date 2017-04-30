@@ -22,12 +22,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/56</span>
+        <span class='fraction'>0/41</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/48</span>
+        <span class='fraction'>0/32</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/56</span>
+        <span class='fraction'>0/41</span>
       </div>
     </div>
   </div>
@@ -152,97 +152,11 @@
 107
 108
 109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+110</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -321,26 +235,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -372,39 +266,6 @@
 'use strict';
 <span class="cstat-no" title="statement not covered" >var defaults = require('defaults');</span>
 <span class="cstat-no" title="statement not covered" >var url = require("url");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >const Queue = require('rethinkdb-job-queue');</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var rethinkdbHost = process.env.RETHINKDB_HOST || 'g7-box';</span>
-<span class="cstat-no" title="statement not covered" >var rethinkdbPort = process.env.RETHINKDB_PORT || 28015;</span>
-<span class="cstat-no" title="statement not covered" >var rethinkdbKey = process.env.RETHINKDB_KEY || '';</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var RETHINKDB_QUEUE_TABLE = process.env.RETHINKDB_QUEUE_TABLE || "comentarismosync";</span>
-<span class="cstat-no" title="statement not covered" >var targetTimeout = process.env.RETHINKDB_TIMEOUT || 120;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >var r = require('rethinkdbdash');</span>
-<span class="cstat-no" title="statement not covered" >const connection = r({</span>
-    db: RETHINKDB_QUEUE_TABLE,
-    timeout: targetTimeout,
-&nbsp;
-    servers: [
-        {
-            host: rethinkdbHost,
-            port: rethinkdbPort
-        }
-    ]
-});
-&nbsp;
-<span class="cstat-no" title="statement not covered" >const analyticsQueueOptions = {</span>
-    name: "analyticsQueue"
-};
-<span class="cstat-no" title="statement not covered" >const analyticsQueue = new Queue(connection, analyticsQueueOptions);</span>
-<span class="cstat-no" title="statement not covered" >analyticsQueue.jobOptions = {</span>
-    priority: 'highest',
-    timeout: 300000,
-    retryMax: 5,
-    retryDelay: 60000
-};
 &nbsp;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function RateLimit(options) {</span></span>
 &nbsp;
@@ -486,26 +347,6 @@
 <span class="cstat-no" title="statement not covered" >                console.log("INFO: Remaining -&gt; ", req.rateLimit.remaining, ip, pathname);</span>
             }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            var v = {</span>
-                app: "comentarismosync",
-                pathname: pathname,
-                headers: req.headers,
-                ip: ip,
-                remaining: parseInt(req.rateLimit.remaining || 0),
-                max: parseInt(options.max || 0),
-                limit: parseInt(limit || 0),
-                time: new Date()
-            };
-&nbsp;
-            // console.log("log view to influxdb, ", v);
-<span class="cstat-no" title="statement not covered" >            const job = analyticsQueue.createJob({</span>
-                view: v
-            });
-&nbsp;
-<span class="cstat-no" title="statement not covered" >            analyticsQueue.addJob(job).catch((err) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                console.error(err);</span>
-            });
-&nbsp;
 <span class="cstat-no" title="statement not covered" >            if (options.max &amp;&amp; current &gt; options.max) {</span>
 <span class="cstat-no" title="statement not covered" >                return options.handler(req, res, next);</span>
             }
@@ -535,7 +376,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Nov 13 2016 22:57:58 GMT+0100 (CET)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 25 2017 23:42:32 GMT+0200 (CEST)
 </div>
 </div>
 <script src="../prettify.js"></script>

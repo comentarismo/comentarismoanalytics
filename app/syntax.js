@@ -7,7 +7,7 @@ module.exports = function (app, requestIp, connection) {
 
     //TODO: add limiter for KEY
 
-    app.all('/syntax', utils.allowCrossDomain, requestIp.mw(), function (req, res) {
+    app.all('/syntax/:type', utils.allowCrossDomain, requestIp.mw(), function (req, res) {
         if (req.method === 'PUT' ||
             req.method === 'GET' ||
             req.method === 'DELETE' ||
@@ -19,12 +19,15 @@ module.exports = function (app, requestIp, connection) {
         }
 
         var track = req.body;
-        if (!track.text || !track.type) {
-            console.log("syntax, Could not identify message :(");
+        var type = req.params.type;
+
+        if (!track.text || !type) {
+            console.log("syntax, Could not identify message, type -> ", type, track);
             return res.status(422).send({error: "invalid_message"});
         }
-        console.log('syntax called ...' + track.type);
+        console.log('syntax called ...' + type);
 
+        type = type.toLowerCase();
 
         // ======= GET ======= noun, verb, adjective, adverb //
 
@@ -32,32 +35,35 @@ module.exports = function (app, requestIp, connection) {
         // ================= // =================
         // ================= getPOS
         // ================= // =================
-        if (track.type === "getPOS") {
+        if (type === "getpos") {
             return wordpos.getPOS(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= getNouns
         // ================= // =================
-        if (track.type === "getNouns") {
-            wordpos.getNouns(track.text, processResponse);
-            return
-            // getVerbs
-        } else if (track.type === "getVerbs") {
+        if (type === "getnouns") {
+            return wordpos.getNouns(track.text, processResponse);
+        }
+
+        // ================= // =================
+        // ================= getVerbs
+        // ================= // =================
+        else if (type === "getverbs") {
             return wordpos.getVerbs(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= getAdjectives
         // ================= // =================
-        else if (track.type === "getAdjectives") {
+        else if (type === "getadjectives") {
             return wordpos.getAdjectives(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= getAdverbs
         // ================= // =================
-        else if (track.type === "getAdverbs") {
+        else if (type === "getadverbs") {
             return wordpos.getAdverbs(track.text, processResponse);
         }
 
@@ -69,14 +75,14 @@ module.exports = function (app, requestIp, connection) {
         // ================= // =================
         // ================= isNoun
         // ================= // =================
-        else if (track.type === "isNoun") {
+        else if (type === "isnoun") {
             return wordpos.isNoun(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= isVerb
         // ================= // =================
-        else if (track.type === "isVerb") {
+        else if (type === "isverb") {
             return wordpos.isVerb(track.text, processResponse);
 
         }
@@ -84,7 +90,7 @@ module.exports = function (app, requestIp, connection) {
         // ================= // =================
         // ================= isAdjective
         // ================= // =================
-        else if (track.type === "isAdjective") {
+        else if (type === "isadjective") {
             return wordpos.isAdjective(track.text, processResponse);
 
         }
@@ -92,42 +98,42 @@ module.exports = function (app, requestIp, connection) {
         // ================= // =================
         // ================= isAdverb
         // ================= // =================
-        else if (track.type === "isAdverb") {
+        else if (type === "isadverb") {
             return wordpos.isAdverb(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= lookup
         // ================= // =================
-        else if (track.type === "lookup") {
+        else if (type === "lookup") {
             return wordpos.lookup(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= lookupNoun
         // ================= // =================
-        else if (track.type === "lookupNoun") {
+        else if (type === "lookupnoun") {
             return wordpos.lookupNoun(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= lookupVerb
         // ================= // =================
-        else if (track.type === "lookupVerb") {
+        else if (type === "lookupverb") {
             return wordpos.lookupVerb(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= lookupAdjective
         // ================= // =================
-        else if (track.type === "lookupAdjective") {
+        else if (type === "lookupadjective") {
             return wordpos.lookupAdjective(track.text, processResponse);
         }
 
         // ================= // =================
         // ================= lookupAdverb
         // ================= // =================
-        else if (track.type === "lookupAdverb") {
+        else if (type === "lookupadverb") {
             return wordpos.lookupAdverb(track.text, processResponse);
 
         } else {
@@ -137,7 +143,7 @@ module.exports = function (app, requestIp, connection) {
 
 
         function processResponse(response) {
-            return res.send({status: "ok", response: response});
+            return res.send(response);
         }
 
     });
