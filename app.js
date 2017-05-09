@@ -58,6 +58,7 @@ require('./app/analytics')(app, requestIp, connection, geoip);
 require('./app/syntax')(app, requestIp, connection);
 require('./app/textinfo')(app, requestIp, connection);
 require('./app/twitter')(app, requestIp, connection);
+require('./app/retext')(app, requestIp, connection);
 
 
 var client = redis.createClient({
