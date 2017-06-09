@@ -377,6 +377,16 @@
       "from": "destroy@>=1.0.4 <1.1.0",
       "resolved": "https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz"
     },
+    "dictionary-en-gb": {
+      "version": "1.2.1",
+      "from": "dictionary-en-gb@latest",
+      "resolved": "https://registry.npmjs.org/dictionary-en-gb/-/dictionary-en-gb-1.2.1.tgz"
+    },
+    "dictionary-en-us": {
+      "version": "1.2.1",
+      "from": "dictionary-en-us@latest",
+      "resolved": "https://registry.npmjs.org/dictionary-en-us/-/dictionary-en-us-1.2.1.tgz"
+    },
     "diff": {
       "version": "1.4.0",
       "from": "diff@1.4.0",

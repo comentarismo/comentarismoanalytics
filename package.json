@@ -23,6 +23,8 @@
     "body-parser": "1.15.2",
     "compression": "1.6.2",
     "defaults": "1.0.3",
+    "dictionary-en-gb": "^1.2.1",
+    "dictionary-en-us": "^1.2.1",
     "express": "4.14.0",
     "geoip-lite": "1.1.8",
     "istanbul": "0.4.5",
