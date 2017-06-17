@@ -16,7 +16,7 @@ var DEBUG_MODE_ON = process.env.DEBUG || false;
 var RETHINKDB_DB = process.env.RETHINKDB_DB || 'test';
 var RETHINKDB_HOST = process.env.RETHINKDB_HOST || 'g7-box';
 var RETHINKDB_PORT = process.env.RETHINKDB_PORT || 28015;
-var RETHINKDB_KEY = process.env.RETHINKDB_KEY || '';
+var RETHINKDB_PASSWORD = process.env.RETHINKDB_PASSWORD;
 
 var RETHINKDB_TIMEOUT = process.env.RETHINKDB_TIMEOUT || 120;
 
@@ -48,7 +48,8 @@ const connection = r({
     servers: [
         {
             host: RETHINKDB_HOST,
-            port: RETHINKDB_PORT
+            port: RETHINKDB_PORT,
+            password: RETHINKDB_PASSWORD
         }
     ]
 });

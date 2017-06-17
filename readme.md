@@ -62,6 +62,7 @@ This is the comentarismo Analytics project.
 ` {type: "extractHashtags", text: '#hashtag Mentioning @twitter and @jack, #baby'}`
 ` {type: "extractUrls", text: '#hashtag Mentioning @twitter and @jack, #baby Message with hyphenated-url.com'}`
 
+# POST `/retext`:
 
 ## Coverage Report
 `http://localhost:3013/lcov-report/`
