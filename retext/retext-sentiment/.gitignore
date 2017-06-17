@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+.nyc_output/
+node_modules/
+coverage/
+retext-sentiment.js
+retext-sentiment.min.js
+index.json

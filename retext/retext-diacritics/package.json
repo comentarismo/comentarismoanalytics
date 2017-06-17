@@ -1,0 +1,70 @@
+{
+  "name": "retext-diacritics",
+  "version": "1.2.1",
+  "description": "Check for proper use of diacritics",
+  "license": "MIT",
+  "keywords": [
+    "diacritic",
+    "loan",
+    "words",
+    "retext",
+    "plugin"
+  ],
+  "repository": "https://github.com/wooorm/retext-diacritics",
+  "bugs": "https://github.com/wooorm/retext-diacritics/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+    "Sylvan Swierkosz <sswierkosz@gmail.com>"
+  ],
+  "files": [
+    "schema.js",
+    "index.js"
+  ],
+  "dependencies": {
+    "match-casing": "^1.0.0",
+    "nlcst-search": "^1.0.0",
+    "nlcst-to-string": "^2.0.0",
+    "object-keys": "^1.0.9",
+    "quotation": "^1.0.1",
+    "unist-util-position": "^3.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^14.1.0",
+    "esmangle": "^1.0.1",
+    "nyc": "^10.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-preset-wooorm": "^3.0.0",
+    "retext": "^5.0.0",
+    "tape": "^4.0.0",
+    "xo": "^0.18.1"
+  },
+  "scripts": {
+    "build-md": "remark . -qfo",
+    "build-bundle": "browserify index.js --bare -s retextDiacritics > retext-diacritics.js",
+    "build-mangle": "esmangle retext-diacritics.js > retext-diacritics.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint": "xo",
+    "test-api": "node test",
+    "test-coverage": "nyc --reporter lcov tape test.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "esnext": false,
+    "ignores": [
+      "retext-diacritics.js"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
+  }
+}

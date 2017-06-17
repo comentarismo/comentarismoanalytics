@@ -1,0 +1,35 @@
+{
+  "name": "retext-overuse",
+  "main": "retext-overuse.js",
+  "description": "",
+  "license": "MIT",
+  "keywords": [
+    "keyword",
+    "phrase",
+    "overuse",
+    "synoynm",
+    "duplicates",
+    "duplication",
+    "retext"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dunckr/retext-overuse.git"
+  },
+  "authors": [
+    "Duncan Beaton <dunckr@gmail.com>"
+  ],
+  "ignore": [
+    ".*",
+    "*.log",
+    "*.md",
+    "build/",
+    "components/",
+    "coverage/",
+    "node_modules/",
+    "component.json",
+    "package.json",
+    "benchmark.js",
+    "test.js"
+  ]
+}

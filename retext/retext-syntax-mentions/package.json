@@ -1,0 +1,66 @@
+{
+  "name": "retext-syntax-mentions",
+  "version": "1.1.4",
+  "description": "Classify @mentions as syntax",
+  "license": "MIT",
+  "keywords": [
+    "syntax",
+    "source",
+    "mentions",
+    "retext"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "nlcst-to-string": "^2.0.0",
+    "unist-util-position": "^3.0.0",
+    "unist-util-visit": "^1.1.0"
+  },
+  "repository": "https://github.com/wooorm/retext-syntax-mentions",
+  "bugs": "https://github.com/wooorm/retext-syntax-mentions/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
+  "devDependencies": {
+    "browserify": "^14.1.0",
+    "esmangle": "^1.0.1",
+    "nyc": "^10.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-preset-wooorm": "^3.0.0",
+    "retext": "^5.0.0",
+    "tape": "^4.0.0",
+    "unist-builder": "^1.0.2",
+    "unist-util-remove-position": "^1.1.0",
+    "xo": "^0.18.0"
+  },
+  "scripts": {
+    "build-md": "remark . -qfo",
+    "build-bundle": "browserify index.js --bare -s retextSyntaxMentions > retext-syntax-mentions.js",
+    "build-mangle": "esmangle retext-syntax-mentions.js > retext-syntax-mentions.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint": "xo",
+    "test-api": "node test",
+    "test-coverage": "nyc --reporter lcov tape test.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "esnext": false,
+    "ignores": [
+      "retext-syntax-mentions.js"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
+  }
+}

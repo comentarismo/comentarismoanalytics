@@ -1,0 +1,80 @@
+{
+  "name": "retext-spell",
+  "version": "2.3.0",
+  "description": "Spelling checker for retext",
+  "license": "MIT",
+  "keywords": [
+    "spelling",
+    "correct",
+    "checker",
+    "spell",
+    "fix",
+    "autocorrect",
+    "retext"
+  ],
+  "repository": "https://github.com/wooorm/retext-spell",
+  "bugs": "https://github.com/wooorm/retext-spell/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+    "Josiah Sprague <josiah.sprague@gmail.com>",
+    "Jan Wirth <jottenwe@gmail.com>",
+    "Sylvan Swierkosz <sswierkosz@gmail.com>"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "has": "^1.0.1",
+    "lodash.includes": "^4.2.0",
+    "nlcst-is-literal": "^1.0.0",
+    "nlcst-to-string": "^2.0.0",
+    "nspell": "^1.0.0",
+    "quotation": "^1.1.0",
+    "unist-util-visit": "^1.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^14.1.0",
+    "dictionary-en-gb": "^1.0.1",
+    "dictionary-en-us": "^1.0.1",
+    "esmangle": "^1.0.1",
+    "nyc": "^10.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-preset-wooorm": "^3.0.0",
+    "retext": "^5.0.0",
+    "tape": "^4.2.0",
+    "xo": "^0.18.1"
+  },
+  "scripts": {
+    "build-md": "remark . -qfo",
+    "build-bundle": "browserify index.js --bare -s retextSpell > retext-spell.js",
+    "build-mangle": "esmangle retext-spell.js > retext-spell.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint": "xo",
+    "test-api": "node test",
+    "test-coverage": "nyc --reporter lcov tape test.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "esnext": false,
+    "rules": {
+      "unicorn/prefer-type-error": "off",
+      "unicorn/no-new-buffer": "off"
+    },
+    "ignores": [
+      "retext-spell.js"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
+  }
+}

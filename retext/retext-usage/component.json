@@ -1,0 +1,26 @@
+{
+  "name": "retext-usage",
+  "version": "0.2.0",
+  "description": "Check phrases for simpler alternatives",
+  "license": "MIT",
+  "keywords": [
+    "usage",
+    "phrase",
+    "retext",
+    "plugin"
+  ],
+  "repository": "admhlt/retext-usage",
+  "dependencies": {
+    "sindresorhus/array-differ": "^1.0.0",
+    "wooorm/nlcst-search": "^1.0.0",
+    "wooorm/nlcst-to-string": "^1.1.0",
+    "ljharb/object-keys": "^1.0.9",
+    "wooorm/quotation": "^1.0.0"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "json": [
+    "data/index.json"
+  ]
+}

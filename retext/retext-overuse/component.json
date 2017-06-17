@@ -1,0 +1,24 @@
+{
+  "name": "retext-overuse",
+  "version": "1.0.1",
+  "description": "Keyword extraction with Retext",
+  "license": "MIT",
+  "keywords": [
+    "keyword",
+    "phrase",
+    "terminology",
+    "term",
+    "extraction",
+    "retext"
+  ],
+  "dependencies": {
+    "dunckr/retext-pos": "^1.0.0",
+    "dunckr/stemmer": "^0.1.4",
+    "dunckr/unist-util-visit": "^1.0.0",
+    "dunckr/nlcst-to-string": "1.0.0"
+  },
+  "repository": "dunckr/retext-overuse",
+  "scripts": [
+    "index.js"
+  ]
+}

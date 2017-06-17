@@ -1,0 +1,92 @@
+{
+  "name": "retext-readability",
+  "version": "4.1.2",
+  "description": "Check readability with retext",
+  "license": "MIT",
+  "keywords": [
+    "revised",
+    "spache",
+    "robert",
+    "gunning",
+    "fog",
+    "smog",
+    "flesch",
+    "coleman",
+    "liau",
+    "index",
+    "dale",
+    "chall",
+    "ari",
+    "reading",
+    "ease",
+    "automated",
+    "readability",
+    "formula",
+    "retext",
+    "plugin"
+  ],
+  "repository": "wooorm/retext-readability",
+  "bugs": "https://github.com/wooorm/retext-readability/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+    "Duncan Beaton <dunckr@gmail.com>",
+    "Josiah Sprague <josiah.sprague@gmail.com>",
+    "Sylvan Swierkosz <sswierkosz@gmail.com>"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "automated-readability": "^1.0.0",
+    "coleman-liau": "^1.0.0",
+    "dale-chall": "^1.0.0",
+    "dale-chall-formula": "^1.0.0",
+    "flesch": "^1.0.0",
+    "gunning-fog": "^1.0.0",
+    "nlcst-to-string": "^2.0.0",
+    "smog-formula": "^1.0.0",
+    "spache": "^1.1.0",
+    "spache-formula": "^1.0.0",
+    "syllable": "^2.0.0",
+    "unist-util-visit": "^1.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^14.0.0",
+    "esmangle": "^1.0.1",
+    "nyc": "^11.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-preset-wooorm": "^3.0.0",
+    "retext": "^5.0.0",
+    "tape": "^4.0.0",
+    "xo": "^0.18.0"
+  },
+  "scripts": {
+    "build-md": "remark . -qfo",
+    "build-bundle": "browserify index.js --bare -s retextReadability > retext-readability.js",
+    "build-mangle": "esmangle retext-readability.js > retext-readability.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint": "xo",
+    "test-api": "node test.js",
+    "test-coverage": "nyc --reporter lcov tape test.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "esnext": false,
+    "ignores": [
+      "retext-readability.js"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-wooorm"
+    ]
+  }
+}
