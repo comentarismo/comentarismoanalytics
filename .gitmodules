@@ -102,7 +102,7 @@
 	url = git@github.com:wooorm/retext-keywords.git
 [submodule "retext/retext-passive"]
 	path = retext/retext-passive
-	url = git@github.com:wooorm/retext-profanities.git
+	url = git@github.com:wooorm/retext-passive.git
 [submodule "retext/retext-readability"]
 	path = retext/retext-readability
 	url = git@github.com:wooorm/retext-readability.git
@@ -130,3 +130,6 @@
 [submodule "retext/retext-quotes"]
 	path = retext/retext-quotes
 	url = git@github.com:wooorm/retext-quotes.git
+[submodule "retext/retext-profanities"]
+	path = retext/retext-profanities
+	url = git@github.com:wooorm/retext-profanities.git

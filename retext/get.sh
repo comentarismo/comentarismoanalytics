@@ -108,11 +108,11 @@ git submodule add -f git@github.com:wooorm/retext-passive.git retext/retext-pass
 git add .gitmodules retext/retext-passive
 
 #git clone git@github.com:wooorm/retext-profanities.git;
-git rm -rf retext/retext-passive --cached
-git rm -rf retext-passive --cached
+git rm -rf retext/retext-profanities --cached
+git rm -rf retext-profanities --cached
 
-git submodule add -f git@github.com:wooorm/retext-profanities.git retext/retext-passive
-git add .gitmodules retext/retext-passive
+git submodule add -f git@github.com:wooorm/retext-profanities.git retext/retext-profanities
+git add .gitmodules retext/retext-profanities
 
 #git clone git@github.com:wooorm/retext-readability.git;
 git rm -rf retext/retext-readability --cached
