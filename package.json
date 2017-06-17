@@ -11,7 +11,8 @@
     "test": "node_modules/.bin/mocha ./test/ --recursive",
     "test-prod": "HOST=analytics.comentarismo.com npm run test",
     "npm-update": "node_modules/.bin/npm-update-outdated",
-    "wrap": "npm shrinkwrap"
+    "wrap": "npm shrinkwrap",
+    "postinstall": "./retext/install.sh"
   },
   "engines": {
     "node": ">= 6.9.1"
