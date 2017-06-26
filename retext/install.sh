@@ -4,10 +4,10 @@
 DIR=$PWD/retext
 
 cd $DIR/retext && yarn || true && npm run build;
-cd $DIR/retext/retext/packages/retext-dutch && yarn;
-cd $DIR/retext/retext/packages/retext-english && yarn;
-cd $DIR/retext/retext/packages/retext-latin && yarn;
-cd $DIR/retext/retext/packages/retext-stringify && yarn;
+cd $DIR/retext/packages/retext-dutch && yarn;
+cd $DIR/retext/packages/retext-english && yarn;
+cd $DIR/retext/packages/retext-latin && yarn;
+cd $DIR/retext/packages/retext-stringify && yarn;
 
 #cd $DIR/retext-dutch && yarn;
 #cd $DIR/retext-english && yarn;
