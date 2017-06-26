@@ -34,7 +34,7 @@ cd $DIR/retext-readability && yarn;
 cd $DIR/retext-redundant-acronyms && yarn;
 cd $DIR/retext-repeated-words && yarn;
 cd $DIR/retext-sentence-spacing && yarn;
-cd $DIR/retext-sentiment && yarn;
+cd $DIR/retext-sentiment && yarn || true && npm run build || true;
 cd $DIR/retext-smartypants && yarn;
 cd $DIR/retext-spell && yarn;
 cd $DIR/retext-syntax-mentions && yarn;
