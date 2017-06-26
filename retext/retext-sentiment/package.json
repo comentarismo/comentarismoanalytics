@@ -33,9 +33,7 @@
   "dependencies": {
     "has": "^1.0.1",
     "nlcst-to-string": "^2.0.0",
-    "unist-util-visit": "^1.0.0"
-  },
-  "devDependencies": {
+    "unist-util-visit": "^1.0.0",
     "afinn-165": "^1.0.0",
     "browserify": "^14.0.0",
     "emoji-emotion": "^2.0.0",

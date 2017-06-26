@@ -4,7 +4,7 @@
   "homepage": "https://github.com/wooorm/retext",
   "repository": "https://github.com/wooorm/retext",
   "bugs": "https://github.com/wooorm/retext/issues",
-  "devDependencies": {
+  "dependencies": {
     "bail": "^1.0.0",
     "browserify": "^14.0.0",
     "bundle-collapser": "^1.2.1",
