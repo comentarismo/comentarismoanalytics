@@ -87,7 +87,7 @@ file][vfile]s.
 *   [`retext-repeated-words`](https://github.com/wooorm/retext-repeated-words)
     — Check `for for` repeated words
 *   [`retext-syntax-mentions`](https://github.com/wooorm/retext-syntax-mentions)
-    — Classify @mentions as syntax
+    — Classify [**@mentions**](https://github.com/blog/821) as syntax
 
 ## License
 

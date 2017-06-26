@@ -40,7 +40,6 @@
     "rethinkdb-job-queue": "1.1.2",
     "rethinkdbdash": "2.3.26",
     "twitter-text": "^1.14.3",
-    "wordnet-db": "^3.1.6",
     "wordpos": "=1.1.5"
   },
   "devDependencies": {
