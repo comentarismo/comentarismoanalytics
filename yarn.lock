@@ -1518,7 +1518,7 @@ window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
 
-wordnet-db@^3.1.6:
+wordnet-db@=3.1.6, wordnet-db@^3.1.6:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/wordnet-db/-/wordnet-db-3.1.6.tgz#ef991a38e986ab91e1b036a2f991798c13620f98"
   dependencies:
