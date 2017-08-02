@@ -1,7 +1,0 @@
-.DS_Store
-.nyc_output
-*.log
-node_modules
-coverage
-retext.js
-retext.min.js

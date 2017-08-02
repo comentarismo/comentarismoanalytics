@@ -5,14 +5,13 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "start-prod": "RETHINKDB_HOST=146.148.121.45 RETHINKDB_PASSWORD=9jYqGM4udXkvwgs4CcrUGYlYYlNurKzsJPEwWaLM41o= nodemon app.js",
+    "start-prod": "RETHINKDB_HOST=147.135.131.12 RETHINKDB_PASSWORD=9jYqGM4udXkvwgs4CcrUGYlYYlNurKzsJPEwWaLM41o= nodemon app.js",
     "check-coverage": "node_modules/.bin/istanbul check-coverage ./coverage/coverage.json",
     "coverage": "node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- ./test/ --recursive",
     "test": "node_modules/.bin/mocha ./test/ --recursive",
     "test-prod": "HOST=analytics.comentarismo.com npm run test",
     "npm-update": "node_modules/.bin/npm-update-outdated",
-    "wrap": "npm shrinkwrap",
-    "postinstall": "./retext/install.sh"
+    "wrap": "npm shrinkwrap"
   },
   "engines": {
     "node": "8.1.2"
@@ -25,8 +24,6 @@
     "body-parser": "1.15.2",
     "compression": "1.6.2",
     "defaults": "1.0.3",
-    "dictionary-en-gb": "^1.2.1",
-    "dictionary-en-us": "^1.2.1",
     "express": "4.14.0",
     "geoip-lite": "1.1.8",
     "istanbul": "0.4.5",
@@ -34,14 +31,7 @@
     "redis": "^2.6.3",
     "request": "2.78.0",
     "request-ip": "^1.2.3",
-    "retext": "^5.0.0",
-    "retext-equality": "^3.0.0",
-    "retext-simplify": "^4.1.0",
-    "rethinkdb-job-queue": "1.1.2",
-    "rethinkdbdash": "2.3.26",
-    "twitter-text": "^1.14.3",
-    "wordnet-db": "=3.1.6",
-    "wordpos": "=1.1.5"
+    "rethinkdbdash": "2.3.26"
   },
   "devDependencies": {
     "assert": "1.4.1",

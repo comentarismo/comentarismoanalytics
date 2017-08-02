@@ -1,4 +1,4 @@
-function printErrorMsg(json, validDate,
+module.exports.printErrorMsg = function(json, validDate,
                        validCategories,
                        validCountries,
                        validLanguages,
@@ -8,15 +8,15 @@ function printErrorMsg(json, validDate,
                        validTitleurlize,
                        validCommentaries_length) {
 
-    var strvalidDate = "date";
-    var strvalidCategories = "categories";
-    var strvalidCountries = "countries";
-    var strvalidLanguages = "languages";
-    var strvalidOperator = "operator";
-    var strvalidGenre = "genre";
-    var strvalidTitle = "title";
-    var strvalidTitleurlize = "titleurlize";
-    var strvalidCommentaries_length = "commentaries length";
+    const strvalidDate = "date";
+    const strvalidCategories = "categories";
+    const strvalidCountries = "countries";
+    const strvalidLanguages = "languages";
+    const strvalidOperator = "operator";
+    const strvalidGenre = "genre";
+    const strvalidTitle = "title";
+    const strvalidTitleurlize = "titleurlize";
+    const strvalidCommentaries_length = "commentaries length";
 
     var resultMsg = "";
 
@@ -64,14 +64,14 @@ function printErrorMsg(json, validDate,
  *
  * @param err
  */
-var dumpError = function dumpError(err) {
+module.exports.dumpError = function dumpError(err) {
     if (typeof err === 'object') {
         if (err.message) {
             console.log('\nMessage: ' + err.message)
         }
         if (err.stack) {
-            console.log('\nStacktrace:')
-            console.log('====================')
+            console.log('\nStacktrace:');
+            console.log('====================');
             console.log(err.stack);
         }
     } else {
@@ -82,7 +82,7 @@ var dumpError = function dumpError(err) {
 
 
 //CORS middleware
-var allowCrossDomain = function (req, res, next) {
+module.exports.allowCrossDomain = function (req, res, next) {
     var oneof = false;
     if (req.headers.origin) {
         res.header('Access-Control-Allow-Origin', req.headers.origin);
@@ -103,17 +103,10 @@ var allowCrossDomain = function (req, res, next) {
     res.header('Content-Type', "application/json");
 
     // intercept OPTIONS method
-    if (oneof && (req.method == 'OPTIONS' )) {
+    if (oneof && (req.method === 'OPTIONS' )) {
         res.send(200);
     }
     else {
         next();
     }
-}
-
-
-module.exports = {
-    printErrorMsg:printErrorMsg,
-    dumpError:dumpError,
-    allowCrossDomain:allowCrossDomain,
-}
+};

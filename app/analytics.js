@@ -1,4 +1,4 @@
-var utils = require("../utils");
+const utils = require("../utils");
 
 module.exports = function (app,requestIp, connection, geoip) {
 
@@ -14,14 +14,14 @@ module.exports = function (app,requestIp, connection, geoip) {
             return res.status(422).send({error: "invalid_method"});
         }
 
-        var t = req.body.track;
+        const t = req.body.track;
         if (!t) {
             console.log("Could not identify message :(", req.body);
             return res.status(422).send({error: "invalid_message"});
         }
-        var track = t;
+        const track = t;
 
-        var ip = req.clientIp;
+        const ip = req.clientIp;
         if (ip) {
             track.ip = ip;
         } else {
@@ -54,7 +54,7 @@ module.exports = function (app,requestIp, connection, geoip) {
     });
 
     function persistView(view, cb) {
-        var geo = geoip.lookup(view.ip);
+        const geo = geoip.lookup(view.ip);
         if (geo) {
             view.geo = geo;
         }

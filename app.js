@@ -1,40 +1,40 @@
-//This is the REST API for the sync module
+//This is the REST API for the analytics+ module
 
 //In here we will be exposing a series of http endpoints to be used further by all our components that need to log metrics
 //ex is the comentarismo-js plugin that need to inform us about the visit, browser and ip address of someone who just visited one of our links, and goes on.
 
 //apis are limiting access for IPs by default to all endpoints
-var requestIp = require('request-ip');
-var redis = require("redis");
-var geoip = require('geoip-lite');
+const requestIp = require('request-ip');
+const redis = require("redis");
+const geoip = require('geoip-lite');
 
-var r = require('rethinkdbdash');
-var utils = require("./utils");
+const r = require('rethinkdbdash');
+const utils = require("./utils");
 
-var DEBUG_MODE_ON = process.env.DEBUG || false;
+const DEBUG_MODE_ON = process.env.DEBUG || false;
 
-var RETHINKDB_DB = process.env.RETHINKDB_DB || 'test';
-var RETHINKDB_HOST = process.env.RETHINKDB_HOST || 'g7-box';
-var RETHINKDB_PORT = process.env.RETHINKDB_PORT || 28015;
-var RETHINKDB_PASSWORD = process.env.RETHINKDB_PASSWORD;
+const RETHINKDB_DB = process.env.RETHINKDB_DB || 'test';
+const RETHINKDB_HOST = process.env.RETHINKDB_HOST || 'g7-box';
+const RETHINKDB_PORT = process.env.RETHINKDB_PORT || 28015;
+const RETHINKDB_PASSWORD = process.env.RETHINKDB_PASSWORD;
 
-var RETHINKDB_TIMEOUT = process.env.RETHINKDB_TIMEOUT || 120;
+const RETHINKDB_TIMEOUT = process.env.RETHINKDB_TIMEOUT || 120;
 
-var REDIS_HOST = process.env.REDIS_HOST || "g7-box";
-var REDIS_PORT = process.env.REDIS_PORT || 6379;
-var REDIS_PASSWORD = process.env.REDIS_PASSWORD || "";
-var EXPIRE_REDIS = process.env.EXPIRE_REDIS;
+const REDIS_HOST = process.env.REDIS_HOST || "g7-box";
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const REDIS_PASSWORD = process.env.REDIS_PASSWORD || "";
+const EXPIRE_REDIS = process.env.EXPIRE_REDIS;
 
-console.log(`REDIS_HOST -> ${REDIS_HOST}, REDIS_PORT -> ${REDIS_PORT}, REDIS_PASSWORD -> ${REDIS_PASSWORD}`);
+console.log(`REDIS_HOST -> ${REDIS_HOST}, REDIS_PORT -> ${REDIS_PORT}, REDIS_PASSWORD -> ${REDIS_PASSWORD}, EXPIRE_REDIS -> ${EXPIRE_REDIS}`);
 
-var port = process.env.PORT || 3013;
+const port = process.env.PORT || 3013;
 
-var express = require('express'),
+const express = require('express'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
     basicAuth = require('basic-auth-connect');
 
-var app = express();
+const app = express();
 
 app.use(compress());
 app.use(bodyParser());
@@ -56,13 +56,9 @@ const connection = r({
 
 require('./app/routes')(app);
 require('./app/analytics')(app, requestIp, connection, geoip);
-require('./app/syntax')(app, requestIp, connection);
-require('./app/textinfo')(app, requestIp, connection);
-require('./app/twitter')(app, requestIp, connection);
-require('./app/retext')(app, requestIp, connection);
 
 
-var client = redis.createClient({
+const client = redis.createClient({
     host: REDIS_HOST, port: REDIS_PORT, password: REDIS_PASSWORD,
     retry_strategy: function (options) {
 
@@ -92,14 +88,14 @@ client.on("error", function (err) {
     console.log("Error: ", err);
 });
 
-var RateLimit = require('./express-rate-limit');
-var RedisStore = require('./redis-store');
+const RateLimit = require('./express-rate-limit');
+const RedisStore = require('./redis-store');
 
-var expireLimit = process.env.EXPIRE_LIMIT || 60;
-var maxLimit = process.env.MAX_LIMIT || 20;
-var delayLimit = process.env.DELAY_LIMIT || 0;
+const expireLimit = process.env.EXPIRE_LIMIT || 60;
+const maxLimit = process.env.MAX_LIMIT || 20;
+const delayLimit = process.env.DELAY_LIMIT || 0;
 
-var limiter = new RateLimit({
+const limiter = new RateLimit({
     store: new RedisStore({
         client: client,
         expiry: expireLimit
@@ -111,11 +107,11 @@ var limiter = new RateLimit({
 
 
 
-var url = require("url");
-var path = require('path');
+const url = require("url");
+const path = require('path');
 
 var limithtml = "";
-var fs = require('fs');
+const fs = require('fs');
 fs.readFile(path.join(__dirname, 'public/404.html'), function (err, html) {
     if (!err) {
         limithtml = html;
@@ -125,8 +121,8 @@ fs.readFile(path.join(__dirname, 'public/404.html'), function (err, html) {
 });
 
 function limiterhandler(req, res) {
-    var pathname = url.parse(req.url).pathname;
-    var ip = req.clientIp;
+    const pathname = url.parse(req.url).pathname;
+    const ip = req.clientIp;
     console.log("Too many requests -> ", ip);
 
     // save possible abuser to ratelimit table

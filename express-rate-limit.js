@@ -1,8 +1,8 @@
 //License 2016 MIT Nathan Friedly
 
 'use strict';
-var defaults = require('defaults');
-var url = require("url");
+const defaults = require('defaults');
+const url = require("url");
 
 function RateLimit(options) {
 
@@ -42,7 +42,7 @@ function RateLimit(options) {
 
 
     function rateLimit(req, res, next) {
-        var pathname = url.parse(req.url).pathname;
+        const pathname = url.parse(req.url).pathname;
 
         //avoid limiting static files, for now
         if (pathname &&
@@ -56,7 +56,7 @@ function RateLimit(options) {
         ) {
             return next();
         }
-        var ip = req.clientIp;
+        const ip = req.clientIp;
         if (!ip || ip && ip.indexOf("127.0.0.1") !== -1) {
             // console.log("Skipping not valid IP --> ",ip)
             return next();
@@ -89,7 +89,7 @@ function RateLimit(options) {
             }
 
             if (options.delayAfter && options.delayMs && current > options.delayAfter) {
-                var delay = (current - options.delayAfter) * options.delayMs;
+                const delay = (current - options.delayAfter) * options.delayMs;
                 return setTimeout(next, delay);
             }
 

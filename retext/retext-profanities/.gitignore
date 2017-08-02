@@ -1,7 +1,0 @@
-.DS_Store
-*.log
-.nyc_output/
-node_modules/
-coverage/
-retext-profanities.js
-retext-profanities.min.js

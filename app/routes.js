@@ -1,4 +1,4 @@
-var port = process.env.PORT || 3113;
+const port = process.env.PORT || 3113;
 
 module.exports = function (app) {
 
