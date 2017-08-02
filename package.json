@@ -31,12 +31,9 @@
     "redis": "^2.6.3",
     "request": "2.78.0",
     "request-ip": "^1.2.3",
-    "rethinkdbdash": "2.3.26"
-  },
-  "devDependencies": {
+    "rethinkdbdash": "2.3.26",
     "assert": "1.4.1",
     "chai": "3.5.0",
-    "istanbul": "https://registry.npmjs.org/istanbul/-/istanbul-0.4.5.tgz",
     "mocha": "3.1.2"
   }
 }
