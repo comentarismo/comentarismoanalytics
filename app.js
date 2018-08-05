@@ -11,6 +11,9 @@ const geoip = require('geoip-lite');
 const r = require('rethinkdbdash');
 const utils = require("./utils");
 
+const logger = require('./server/logger_middleware/server').logger
+
+
 const DEBUG_MODE_ON = process.env.DEBUG || false;
 
 const RETHINKDB_DB = process.env.RETHINKDB_DB || 'test';
@@ -20,12 +23,12 @@ const RETHINKDB_PASSWORD = process.env.RETHINKDB_PASSWORD;
 
 const RETHINKDB_TIMEOUT = process.env.RETHINKDB_TIMEOUT || 120;
 
-const REDIS_HOST = process.env.REDIS_HOST || "g7-box";
+const REDIS_HOST = process.env.REDIS_HOST || "localhost";
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
 const REDIS_PASSWORD = process.env.REDIS_PASSWORD || "";
 const EXPIRE_REDIS = process.env.EXPIRE_REDIS;
 
-console.log(`REDIS_HOST -> ${REDIS_HOST}, REDIS_PORT -> ${REDIS_PORT}, REDIS_PASSWORD -> ${REDIS_PASSWORD}, EXPIRE_REDIS -> ${EXPIRE_REDIS}`);
+logger.info(`REDIS_HOST -> ${REDIS_HOST}, REDIS_PORT -> ${REDIS_PORT}, REDIS_PASSWORD -> ${REDIS_PASSWORD}, EXPIRE_REDIS -> ${EXPIRE_REDIS}`);
 
 const port = process.env.PORT || 3013;
 
@@ -54,8 +57,8 @@ const connection = r({
     ]
 });
 
-require('./app/routes')(app);
-require('./app/analytics')(app, requestIp, connection, geoip);
+require('./server/routes')(app);
+require('./server/analytics')(app, requestIp, connection, geoip);
 
 
 const client = redis.createClient({
@@ -85,7 +88,7 @@ client.on("connect", function () {
 });
 
 client.on("error", function (err) {
-    console.log("Error: ", err);
+    logger.error("Error: ", err);
 });
 
 const RateLimit = require('./express-rate-limit');
@@ -116,14 +119,14 @@ fs.readFile(path.join(__dirname, 'public/404.html'), function (err, html) {
     if (!err) {
         limithtml = html;
     } else {
-        console.log("Could not open html for 404 err :(")
+        logger.error("Could not open html for 404 err :(")
     }
 });
 
 function limiterhandler(req, res) {
     const pathname = url.parse(req.url).pathname;
     const ip = req.clientIp;
-    console.log("Too many requests -> ", ip);
+    logger.error("Too many requests -> ", ip);
 
     // save possible abuser to ratelimit table
     connection.table('ratelimit').get(ip).update(
@@ -161,4 +164,4 @@ app.use(express.static('coverage'));
 app.use(requestIp.mw());
 
 app.listen(port);
-console.log('Express app started on port ' + port);
+logger.info('Express app started on port ' + port);

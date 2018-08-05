@@ -1,3 +1,5 @@
+const logger = require('./server/logger_middleware/server').logger
+
 module.exports.printErrorMsg = function(json, validDate,
                        validCategories,
                        validCountries,
@@ -20,42 +22,42 @@ module.exports.printErrorMsg = function(json, validDate,
 
     var resultMsg = "";
 
-    console.log('------------------------------');
+    logger.log('------------------------------');
 
     if (validDate) {
-        console.log('ERROR: invalid Date --> ' + json.date);
+        logger.error('ERROR: invalid Date --> ' + json.date);
         resultMsg = strvalidDate;
     } else if (validCategories) {
-        console.log('ERROR: invalid Categories --> ' + json.categories);
+        logger.error('ERROR: invalid Categories --> ' + json.categories);
         resultMsg = strvalidCategories;
     } else if (validCountries) {
-        console.log('ERROR: invalid Countries --> ' + json.countries);
+        logger.error('ERROR: invalid Countries --> ' + json.countries);
         resultMsg = strvalidCountries;
     } else if (validLanguages) {
-        console.log('ERROR: invalid Languages --> ' + json.languages);
+        logger.error('ERROR: invalid Languages --> ' + json.languages);
         resultMsg = strvalidLanguages;
     } else if (validOperator) {
-        console.log('ERROR: invalid Operator --> ' + json.operator);
+        logger.error('ERROR: invalid Operator --> ' + json.operator);
         resultMsg = strvalidOperator;
     } else if (validGenre) {
-        console.log('ERROR: invalid Genre --> ' + json.genre);
+        logger.error('ERROR: invalid Genre --> ' + json.genre);
         resultMsg = strvalidGenre;
     } else if (validTitle) {
-        console.log('ERROR: invalid Title --> ' + json.title);
+        logger.error('ERROR: invalid Title --> ' + json.title);
         resultMsg = strvalidTitle;
     } else if (validTitleurlize) {
-        console.log('ERROR: invalid Titleurlize --> ' + json.titleurlize);
+        logger.error('ERROR: invalid Titleurlize --> ' + json.titleurlize);
         resultMsg = strvalidTitleurlize;
     } else if (validCommentaries_length) {
-        console.log('ERROR: invalid Commentaries Length --> ' + json.commentaries.length);
+        logger.error('ERROR: invalid Commentaries Length --> ' + json.commentaries.length);
         resultMsg = strvalidCommentaries_length;
     }
 
-    console.log('ERROR: no ' + resultMsg + ' found for this page ' + json.link);
-    console.log('------------------------------');
-    console.log('Nothing to save.');
-    console.log('------------------------------');
-    console.log('job is done, sending message to state machine that is all good to trigger next run!');
+    logger.error('ERROR: no ' + resultMsg + ' found for this page ' + json.link);
+    logger.error('------------------------------');
+    logger.error('Nothing to save.');
+    logger.error('------------------------------');
+    logger.error('job is done, sending message to state machine that is all good to trigger next run!');
 
     return resultMsg;
 }
@@ -67,15 +69,15 @@ module.exports.printErrorMsg = function(json, validDate,
 module.exports.dumpError = function dumpError(err) {
     if (typeof err === 'object') {
         if (err.message) {
-            console.log('\nMessage: ' + err.message)
+            logger.error('\nMessage: ' + err.message)
         }
         if (err.stack) {
-            console.log('\nStacktrace:');
-            console.log('====================');
-            console.log(err.stack);
+            logger.error('\nStacktrace:');
+            logger.error('====================');
+            logger.error(err.stack);
         }
     } else {
-        console.log('dumpError :: argument is not an object');
+        logger.error('dumpError :: argument is not an object');
     }
 };
 

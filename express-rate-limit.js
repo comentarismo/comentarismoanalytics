@@ -3,6 +3,7 @@
 'use strict';
 const defaults = require('defaults');
 const url = require("url");
+const logger = require('./server/logger_middleware/server').logger
 
 function RateLimit(options) {
 
@@ -78,10 +79,10 @@ function RateLimit(options) {
             }
             var limit = 0;
             if (!req.rateLimit.remaining) {
-                console.log("WARN: RateLimit -> ", req.rateLimit.remaining, ip, pathname);
+                logger.warn("WARN: RateLimit -> ", req.rateLimit.remaining, ip, pathname);
                 limit = 1;
             } else {
-                console.log("INFO: Remaining -> ", req.rateLimit.remaining, ip, pathname);
+                logger.debug("INFO: Remaining -> ", req.rateLimit.remaining, ip, pathname);
             }
 
             if (options.max && current > options.max) {
