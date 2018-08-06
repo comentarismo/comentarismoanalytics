@@ -163,5 +163,8 @@ app.use(express.static('coverage'));
 
 app.use(requestIp.mw());
 
+//disable powered by
+app.disable('x-powered-by');
+
 app.listen(port);
 logger.info('Express app started on port ' + port);

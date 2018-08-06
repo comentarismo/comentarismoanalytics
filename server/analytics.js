@@ -6,20 +6,20 @@ var errMsg = 'Error: '
 module.exports = function (app, requestIp, RETHINKDB_CONNECTION, geoip) {
 
     app.all('/analytics', utils.allowCrossDomain, requestIp.mw(), function (req, res) {
-        logger.log('analytics called ...', req.body.track);
+        logger.debug('analytics called ...', req.body.track);
         if (req.method === 'PUT' ||
             req.method === 'GET' ||
             req.method === 'DELETE' ||
             req.method === 'HEAD' ||
             req.method === 'TRACE' ||
             req.method === 'CONNECT') {
-            logger.log("Could not process METHOD:(", req.method);
+            logger.error("Could not process METHOD:(", req.method);
             return res.status(422).send({error: "invalid_method"});
         }
 
         const t = req.body.track;
         if (!t) {
-            logger.log("Could not identify message :(", req.body);
+            logger.error("Could not identify message :(", req.body);
             return res.status(422).send({error: "invalid_message"});
         }
         const track = t;
@@ -28,10 +28,10 @@ module.exports = function (app, requestIp, RETHINKDB_CONNECTION, geoip) {
         if (ip) {
             track.ip = ip;
         } else {
-            logger.log("Error: Could not identify IP!! ")
+            logger.error("Error: Could not identify IP!! ")
         }
 
-        logger.log(track);
+        logger.debug(track);
 
         //if is message type view
         if (track.type === "view") {
@@ -40,17 +40,17 @@ module.exports = function (app, requestIp, RETHINKDB_CONNECTION, geoip) {
 
             persistView(track, function (err) {
                 if (err) {
-                    logger.log("Error: persistView, ", err);
+                    logger.error("Error: persistView, ", err);
                     return res.send({error: "Could not process view"});
                 } else {
-                    logger.log("Done processing job :D ");
+                    logger.debug("Done processing job :D ");
                     return res.send({track: "ok"});
                 }
 
             });
 
         } else {
-            logger.log("Could not identify message type :(", track);
+            logger.error("Could not identify message type :(", track);
             return res.status(422).send({error: "invalid_type"});
         }
 
@@ -60,9 +60,9 @@ module.exports = function (app, requestIp, RETHINKDB_CONNECTION, geoip) {
     app.all('/getviews', utils.allowCrossDomain, requestIp.mw(), function (req, res) {
 
         var table = "analytics";
-        var index = req.params.index || "operator";
-        var value = req.params.value || "theguardian";
-        var range = parseInt(req.params.range);
+        var index = req.query.index || "operator";
+        var value = req.query.value || "theguardian";
+        var range = parseInt(req.query.range);
         if (!range) {
             //default 6 months
             range = 6
@@ -162,7 +162,7 @@ module.exports = function (app, requestIp, RETHINKDB_CONNECTION, geoip) {
         }).run().then(function (dbres) {
             cb();
         }).catch(function (e) {
-            logger.log("ERROR: ", e);
+            logger.error("ERROR: ", e);
             cb(e);
         });
 

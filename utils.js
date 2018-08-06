@@ -1,14 +1,14 @@
 const logger = require('./server/logger_middleware/server').logger
 
-module.exports.printErrorMsg = function(json, validDate,
-                       validCategories,
-                       validCountries,
-                       validLanguages,
-                       validOperator,
-                       validGenre,
-                       validTitle,
-                       validTitleurlize,
-                       validCommentaries_length) {
+module.exports.printErrorMsg = function (json, validDate,
+                                         validCategories,
+                                         validCountries,
+                                         validLanguages,
+                                         validOperator,
+                                         validGenre,
+                                         validTitle,
+                                         validTitleurlize,
+                                         validCommentaries_length) {
 
     const strvalidDate = "date";
     const strvalidCategories = "categories";
@@ -82,30 +82,19 @@ module.exports.dumpError = function dumpError(err) {
 };
 
 
-
 //CORS middleware
 module.exports.allowCrossDomain = function (req, res, next) {
-    var oneof = false;
-    if (req.headers.origin) {
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-        oneof = true;
-    }
-    if (req.headers['access-control-request-method']) {
-        res.header('Access-Control-Allow-Methods', "DELETE, GET, HEAD, POST, PUT, OPTIONS");
-        oneof = true;
-    }
-    if (req.headers['access-control-request-headers']) {
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, COMENTARISMO-KEY');
-        oneof = true;
-    }
-    if (oneof) {
-        res.header('Access-Control-Max-Age', 60 * 60 * 24 * 2);
-    }
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', "DELETE, GET, HEAD, POST, PUT, OPTIONS");
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, COMENTARISMO-KEY');
+    res.header('Access-Control-Max-Age', 60 * 60 * 24 * 2);
 
     res.header('Content-Type', "application/json");
 
+    res.header("Access-Control-Allow-Credentials", "true");
+
     // intercept OPTIONS method
-    if (oneof && (req.method === 'OPTIONS' )) {
+    if (req.method === 'OPTIONS') {
         res.send(200);
     }
     else {
